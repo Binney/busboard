@@ -1,0 +1,18 @@
+﻿@using BusWireMVC.Models
+@model BusWireMVC.Models.BusStop
+
+<div class="busstop">
+    <div class="busstop-name">@Model.CommonName Departures Board</div>
+
+    <table>
+        <tr class="busstop-table-head">
+            <td>Route</td>
+            <td>Towards</td>
+            <td>Expected arrival</td>
+        </tr>
+        @foreach (BusArrival b in @Model.NextArrivals)
+        {
+            @Html.Partial("ArrivalField", b)
+        }
+    </table>
+</div>

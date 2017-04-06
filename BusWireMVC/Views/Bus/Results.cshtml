@@ -1,0 +1,19 @@
+﻿@using BusWireMVC.Models
+@model BusWireMVC.ViewModels.BusInfoViewModel
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="busstop buserror">
+        @Html.ValidationMessage(string.Empty)
+    </div>
+}
+else
+{
+    foreach (BusStop bs in @Model.BusStops)
+    {
+        if (bs.NextArrivals.Count > 0)
+        {
+            @Html.Partial("StopField", bs)
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@model BusWireMVC.ViewModels.BusInfoViewModel
+
+@{
+    ViewBag.Title = "Bus Information";
+}
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+
+        function hideDiv() {
+            $('#resultsdiv').hide();
+        }
+
+        function showDiv() {
+            $('#resultsdiv').show();
+        }
+
+    </script>
+}
+
+    <div class="row">
+        @using (Ajax.BeginForm("Results", "Bus", new AjaxOptions
+        {
+            HttpMethod = "GET",
+            UpdateTargetId = "resultsdiv",
+            OnBegin = "hideDiv",
+            OnComplete = "showDiv",
+            InsertionMode = InsertionMode.Replace,
+            LoadingElementId = "bus"
+        }))
+        {
+            <fieldset>
+                @Html.TextBox("PostCode")
+                <input type="submit" value="Refresh" />
+            </fieldset>
+        }
+        <img class="loading-image" id="bus" src="~/bus.jpg" style="display: none" />
+        <div id="resultsdiv">
+            @Html.Partial("Results")
+        </div>
+    </div>
